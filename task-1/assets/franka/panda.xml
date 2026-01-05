@@ -1,0 +1,105 @@
+<mujoco model="franka_panda">
+  <compiler angle="radian" meshdir="."/>
+  
+  <default>
+    <joint damping="1" armature="0.1"/>
+    <!-- Visual settings for the robot links -->
+    <geom type="capsule" rgba="0.9 0.9 0.9 1" size="0.05"/>
+    <site rgba="1 0 0 1" size="0.01"/>
+  </default>
+
+  <asset>
+    <!-- We use procedural textures or colors instead of meshes for simplicity -->
+  </asset>
+
+  <worldbody>
+    <!-- Robot Base -->
+    <body name="link0" pos="0 0 0">
+      <geom type="cylinder" fromto="0 0 0 0 0 0.05" size="0.06" rgba="0.8 0.8 0.8 1"/>
+      
+      <!-- Joint 1 -->
+      <body name="link1" pos="0 0 0.333">
+        <joint name="joint1" axis="0 0 1" range="-2.8973 2.8973"/>
+        <geom fromto="0 0 0 0 0 -0.15"/> 
+        <geom fromto="0 0 0 0 0.1 0" size="0.05"/>
+        
+        <!-- Joint 2 -->
+        <body name="link2" pos="0 0 0" quat="0.707107 -0.707107 0 0">
+          <joint name="joint2" axis="0 0 1" range="-1.7628 1.7628"/>
+          <geom fromto="0 0 0 0 0 0.15"/>
+          
+          <!-- Joint 3 -->
+          <body name="link3" pos="0 -0.316 0" quat="0.707107 0.707107 0 0">
+            <joint name="joint3" axis="0 0 1" range="-2.8973 2.8973"/>
+            <geom fromto="0 0 0 0 0 -0.125"/>
+            <geom fromto="0 0 0 0.15 0 0" size="0.05"/>
+
+            <!-- Joint 4 -->
+            <body name="link4" pos="0.15 0 0.01" quat="0.707107 0.707107 0 0">
+              <joint name="joint4" axis="0 0 1" range="-3.0718 -0.0698"/>
+              <geom fromto="0 0 0 -0.075 0 0"/>
+              
+              <!-- Joint 5 -->
+              <body name="link5" pos="-0.0725 0.36 0" quat="0.707107 -0.707107 0 0">
+                <joint name="joint5" axis="0 0 1" range="-2.8973 2.8973"/>
+                <geom fromto="0 0 0 0 0 -0.3175"/>
+                
+                <!-- Joint 6 -->
+                <body name="link6" pos="0 0 0" quat="0.707107 0.707107 0 0">
+                  <joint name="joint6" axis="0 0 1" range="-0.0175 3.7525"/>
+                  <geom fromto="0 0 0 0 0 0.001"/>
+                  
+                  <!-- Joint 7 -->
+                  <body name="link7" pos="0.088 0 0" quat="0.707107 0.707107 0 0">
+                    <joint name="joint7" axis="0 0 1" range="-2.8973 2.8973"/>
+                    <geom type="cylinder" fromto="0 0 0 0 0 0.107" size="0.04"/>
+                    
+                    <!-- Hand -->
+                    <body name="hand" pos="0 0 0.107" quat="0.92388 0 0 -0.382683">
+                      <geom type="box" size="0.02 0.08 0.02" rgba="1 1 1 1"/>
+                      
+                      <!-- Attachment Site for IK -->
+                      <site name="attachment_site" pos="0 0 0.1034" />
+                      
+                      <!-- Fingers -->
+                      <body name="left_finger" pos="0 0 0.0584">
+                          <joint name="finger_joint1" type="slide" axis="0 1 0" range="0 0.04"/>
+                          <geom type="box" size="0.01 0.01 0.04" pos="0 0.02 0.04" friction="5 5 0.1" solimp="0.99 0.99 0.001" solref="0.002 1"/>
+                        </body>
+                        <body name="right_finger" pos="0 0 0.0584">
+                          <joint name="finger_joint2" type="slide" axis="0 -1 0" range="0 0.04"/>
+                          <geom type="box" size="0.01 0.01 0.04" pos="0 -0.02 0.04" friction="5 5 0.1" solimp="0.99 0.99 0.001" solref="0.002 1"/>
+                        </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <motor name="ctrl_joint1" joint="joint1" gear="100"/>
+    <motor name="ctrl_joint2" joint="joint2" gear="100"/>
+    <motor name="ctrl_joint3" joint="joint3" gear="100"/>
+    <motor name="ctrl_joint4" joint="joint4" gear="100"/>
+    <motor name="ctrl_joint5" joint="joint5" gear="100"/>
+    <motor name="ctrl_joint6" joint="joint6" gear="100"/>
+    <motor name="ctrl_joint7" joint="joint7" gear="100"/>
+    <position name="ctrl_finger1" joint="finger_joint1" kp="100"/>
+    <position name="ctrl_finger2" joint="finger_joint2" kp="100"/>
+  </actuator>
+  
+  <sensor>
+     <jointpos name="jp1" joint="joint1"/>
+     <jointpos name="jp2" joint="joint2"/>
+     <jointpos name="jp3" joint="joint3"/>
+     <jointpos name="jp4" joint="joint4"/>
+     <jointpos name="jp5" joint="joint5"/>
+     <jointpos name="jp6" joint="joint6"/>
+     <jointpos name="jp7" joint="joint7"/>
+  </sensor>
+</mujoco>
