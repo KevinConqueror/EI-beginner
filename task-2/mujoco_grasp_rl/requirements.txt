@@ -1,0 +1,6 @@
+gymnasium
+mujoco
+numpy
+stable-baselines3
+shimmy
+pyyaml

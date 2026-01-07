@@ -35,7 +35,7 @@
             <geom fromto="0 0 0 0.15 0 0" size="0.05"/>
 
             <!-- Joint 4 -->
-            <body name="link4" pos="0.15 0 0.01" quat="0.707107 0.707107 0 0">
+            <body name="link4" pos="0.15 0 0" quat="0.707107 0.707107 0 0">
               <joint name="joint4" axis="0 0 1" range="-3.0718 -0.0698"/>
               <geom fromto="0 0 0 -0.075 0 0"/>
               
