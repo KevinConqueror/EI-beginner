@@ -1,0 +1,22 @@
+# @package _global_
+
+defaults:
+  - /examples/embodiment
+  # 使用配置 /planner/llm_planner.yaml 作为基础配置
+  - override /planner@evaluation.agents.agent_0.planner: llm_planner
+  # 使用配置 /llm/openai_chat.yaml
+  # 注意，该配置文件中部分参数会被 env.bash 文件中的环境变量覆盖
+  - override /llm@evaluation.agents.agent_0.planner.plan_config.llm: openai_chat
+
+habitat:
+  dataset:
+    data_path: data/datasets/validation_episodes.json.gz
+    
+# 修改 /planner/llm_planner.yaml 中的 Planner 类型为示例 Planner
+evaluation:
+  agents:
+    agent_0:
+      planner:        
+        _target_: 'embodiment.planner.EmbodimentPlanner'
+        plan_config:
+            replanning_threshold: 3 # max number of times the LLM is allowed to plan to finish the task

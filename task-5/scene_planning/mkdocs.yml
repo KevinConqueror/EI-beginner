@@ -1,0 +1,27 @@
+site_name: Embodiment
+nav:
+  - Home: index.md
+  - API: 
+    - PartnrRunner: api/PartnrRunner.md
+    - CollaborationEpisode: api/CollaborationEpisode.md
+    - Planner: api/Planner.md
+    - WorldGraph: api/WorldGraph.md
+    - Entity: api/Entity.md
+    - DebugVisualizer: api/DebugVisualizer.md
+  - SCRIPTS:
+    - test_installation.py: scripts/test_installation.md
+    - evaluation.py: scripts/evaluation.md
+  - CONFIG:
+    - Hydra Basics: config/hydra_basics.md
+    - Config File: config/configuration_file.md
+
+theme:
+  name: readthedocs
+  highlightjs: true
+  hljs_languages:
+    - yaml
+  
+  # color_mode: dark
+  # palette:
+  #   primary: deep purple
+  #   accent: deep purple
